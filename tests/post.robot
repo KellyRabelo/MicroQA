@@ -10,10 +10,10 @@ Should create a new partner
 
     ${partner}    Factory New Partner
 
-    Remove Partner By Name    Pizzas Papito
+    Remove Partner By Name    ${partner}[name]
 
 
-    ${response}    POST Partner    ${partner}[name]
+    ${response}    POST Partner    ${partner}
 
     Status Should Be    201
 
@@ -23,9 +23,9 @@ Should create a new partner
 Should  return  duplicate company name 
     ${partner}    Factory New Partner
 
-    Remove Partner By Name    Pizzas Papito
-
-
+   
     ${response}    POST Partner    ${partner}
 
     Status Should Be    409
+
+    Should Be Equal     ${response.json()}[message]     Duplicate company name

@@ -15,5 +15,6 @@ POST Partner
     ${response}             post    ${BASE_URL}
     ...                     json=${payload}
     ...                     headers=${HEADERS}
+    ...                     expected_status=any
 
     [return]    ${response}
