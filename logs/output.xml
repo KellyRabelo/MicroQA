@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 4.1 (Python 3.9.6 on win32)" generated="20220519 20:15:44.170" rpa="false" schemaversion="2">
+<suite id="s1" name="Post" source="C:\qaninja\BURGER-EATS-PARTNER-API-TESTS\tests\post.robot">
+<test id="s1-t1" name="Should create a new partner">
+<kw name="Factory New Partner" library="partner">
+<var>${partner}</var>
+<msg timestamp="20220519 20:15:44.412" level="INFO">${partner} = {'name': 'Pizzas Papito', 'email': 'contato@papito.com.br', 'whatsapp': '61994408818', 'business': 'Restaurante'}</msg>
+<status status="PASS" starttime="20220519 20:15:44.412" endtime="20220519 20:15:44.412"/>
+</kw>
+<kw name="Remove Partner By Name" library="database">
+<arg>Pizzas Papito</arg>
+<kw name="Create Dictionary" library="BuiltIn">
+<var>${filter}</var>
+<arg>name=${partner_name}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<msg timestamp="20220519 20:15:44.413" level="INFO">${filter} = {'name': 'Pizzas Papito'}</msg>
+<status status="PASS" starttime="20220519 20:15:44.413" endtime="20220519 20:15:44.413"/>
+</kw>
+<kw name="Delete One" library="RobotMongoDBLibrary.Delete">
+<arg>${MONGODB_URI}</arg>
+<arg>${filter}</arg>
+<status status="PASS" starttime="20220519 20:15:44.413" endtime="20220519 20:15:44.414"/>
+</kw>
+<status status="PASS" starttime="20220519 20:15:44.412" endtime="20220519 20:15:44.414"/>
+</kw>
+<kw name="POST Partner" library="services">
+<var>${response}</var>
+<arg>${partner}</arg>
+<kw name="POST" library="RequestsLibrary">
+<var>${response}</var>
+<arg>${BASE_URL}</arg>
+<arg>json=${payload}</arg>
+<arg>headers=${HEADERS}</arg>
+<doc>Sends a POST request.</doc>
+<msg timestamp="20220519 20:15:44.427" level="INFO">POST Request : url=http://localhost:3000/partners 
+ path_url=/partners 
+ headers={'User-Agent': 'python-requests/2.26.0', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Type': 'application/json', 'auth_user': 'qa', 'auth_password': 'ninja', 'Content-Length': '113'} 
+ body=b'{"name": "Pizzas Papito", "email": "contato@papito.com.br", "whatsapp": "61994408818", "business": "Restaurante"}' 
+ </msg>
+<msg timestamp="20220519 20:15:44.427" level="INFO">POST Response : url=http://localhost:3000/partners 
+ status=404, reason=Not Found 
+ headers={'X-Powered-By': 'Express', 'Content-Security-Policy': "default-src 'none'", 'X-Content-Type-Options': 'nosniff', 'Content-Type': 'text/html; charset=utf-8', 'Content-Length': '148', 'Date': 'Thu, 19 May 2022 23:15:44 GMT', 'Connection': 'keep-alive', 'Keep-Alive': 'timeout=5'} 
+ body=&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+&lt;meta charset="utf-8"&gt;
+&lt;title&gt;Error&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;pre&gt;Cannot POST /partners&lt;/pre&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+ 
+ </msg>
+<msg timestamp="20220519 20:15:44.429" level="FAIL">HTTPError: 404 Client Error: Not Found for url: http://localhost:3000/partners</msg>
+<status status="FAIL" starttime="20220519 20:15:44.415" endtime="20220519 20:15:44.429"/>
+</kw>
+<status status="FAIL" starttime="20220519 20:15:44.415" endtime="20220519 20:15:44.430"/>
+</kw>
+<kw name="RequestsLibrary.Status Should Be 201">
+<status status="NOT RUN" starttime="20220519 20:15:44.432" endtime="20220519 20:15:44.432"/>
+</kw>
+<kw name="Should Be Equal" library="BuiltIn">
+<arg>${response.json()}[partner_id]</arg>
+<arg>${results}[0][_id]</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="NOT RUN" starttime="20220519 20:15:44.433" endtime="20220519 20:15:44.433"/>
+</kw>
+<status status="FAIL" starttime="20220519 20:15:44.411" endtime="20220519 20:15:44.433">HTTPError: 404 Client Error: Not Found for url: http://localhost:3000/partners</status>
+</test>
+<doc>POST/partners</doc>
+<status status="FAIL" starttime="20220519 20:15:44.172" endtime="20220519 20:15:44.435"/>
+</suite>
+<statistics>
+<total>
+<stat pass="0" fail="1" skip="0">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat pass="0" fail="1" skip="0" id="s1" name="Post">Post</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>
