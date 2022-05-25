@@ -17,13 +17,15 @@ Should create a new partner
 
     Status Should Be    201
 
-    ${results}         Find Partner By Name              Pizzas Papito
+    ${results}         Find Partner By Name              ${partner}[name]
     Should Be Equal    ${response.json()}[partner_id]    ${results}[_id]
 
 Should  return  duplicate company name 
-    ${partner}    Factory New Partner
+    [Tags]      bugs
+    ${partner}    Factory Dup Name
 
-   
+    Remove Partner By Name    ${partner}[name]
+    POST Partner  ${partenr}
     ${response}    POST Partner    ${partner}
 
     Status Should Be    409
