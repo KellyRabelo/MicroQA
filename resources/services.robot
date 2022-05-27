@@ -12,7 +12,17 @@ POST Partner
 
     [Arguments]    ${payload}
 
-    ${response}             post    ${BASE_URL}
+    ${response}             POST    ${BASE_URL}
+    ...                     json=${payload}
+    ...                     headers=${HEADERS}
+    ...                     expected_status=any
+
+    [return]    ${response}
+
+
+GET Partner
+
+    ${response}             GET    ${BASE_URL}
     ...                     json=${payload}
     ...                     headers=${HEADERS}
     ...                     expected_status=any
