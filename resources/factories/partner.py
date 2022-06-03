@@ -1,13 +1,10 @@
-from traceback import print_list
-
-
 def factory_new_partner():
   partner = {
     'name': 'Pizzas Papito',
     'email': 'contato@papito.com.br',
     'whatsapp': '61994408818',
     'business': 'Restaurante'
-    }
+  }
   return partner
 
 def factory_dup_name():
@@ -19,9 +16,8 @@ def factory_dup_name():
     }
   return partner
 
-  def factory_partner_list():
-
-    p_list = [
+def factory_partner_list():
+  p_list = [
     {
     'name': 'Kelly rabelo',
     'email': 'contato@gmail.com.br',
